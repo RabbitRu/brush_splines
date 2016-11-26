@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>823</width>
+    <height>391</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <widget class="TabletCanvas" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>-1</y>
+      <width>1021</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>823</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Fi&amp;le</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuBrush">
+    <property name="title">
+     <string>Br&amp;ush</string>
+    </property>
+    <addaction name="actionBrush"/>
+   </widget>
+   <widget class="QMenu" name="menuTablet">
+    <property name="title">
+     <string>Tablet</string>
+    </property>
+    <widget class="QMenu" name="menuLine_Width">
+     <property name="title">
+      <string>&amp;Line Width</string>
+     </property>
+     <addaction name="actionWidthFixed"/>
+     <addaction name="actionWidthPressure"/>
+    </widget>
+    <widget class="QMenu" name="menuColor_transition">
+     <property name="title">
+      <string>&amp;Color transition</string>
+     </property>
+     <addaction name="actionStartingColor"/>
+     <addaction name="actionEndingColor"/>
+     <addaction name="actionTransition"/>
+    </widget>
+    <widget class="QMenu" name="menuTransparency">
+     <property name="title">
+      <string>&amp;Transparency</string>
+     </property>
+     <addaction name="actionTransparencyFixed"/>
+     <addaction name="actionTransparencyPressure"/>
+    </widget>
+    <addaction name="menuLine_Width"/>
+    <addaction name="menuColor_transition"/>
+    <addaction name="menuTransparency"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuBench">
+    <property name="title">
+     <string>Be&amp;nch</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionRecord"/>
+    <addaction name="actionPlay"/>
+   </widget>
+   <widget class="QMenu" name="menuAlgorithm">
+    <property name="title">
+     <string>Al&amp;gorithm</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionBasic"/>
+    <addaction name="actionBrush_mod"/>
+    <addaction name="actionSplines"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuAlgorithm"/>
+   <addaction name="menuBrush"/>
+   <addaction name="menuTablet"/>
+   <addaction name="menuHelp"/>
+   <addaction name="menuBench"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>&amp;Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>&amp;Save as</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionBrush">
+   <property name="text">
+    <string>&amp;Brush Color</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionWidthFixed">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Fixed</string>
+   </property>
+  </action>
+  <action name="actionWidthPressure">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Pressure</string>
+   </property>
+  </action>
+  <action name="actionRecord">
+   <property name="text">
+    <string>&amp;Record</string>
+   </property>
+  </action>
+  <action name="actionPlay">
+   <property name="text">
+    <string>&amp;Draw recorded</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="actionStartingColor">
+   <property name="text">
+    <string>&amp;Starting Color</string>
+   </property>
+  </action>
+  <action name="actionEndingColor">
+   <property name="text">
+    <string>&amp;Ending Color</string>
+   </property>
+  </action>
+  <action name="actionTransparencyFixed">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Fixed</string>
+   </property>
+  </action>
+  <action name="actionBasic">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Basic</string>
+   </property>
+  </action>
+  <action name="actionBrush_mod">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Brush-&amp;mod</string>
+   </property>
+  </action>
+  <action name="actionSplines">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Splines</string>
+   </property>
+  </action>
+  <action name="actionTransparencyPressure">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Pressure</string>
+   </property>
+  </action>
+  <action name="actionTransition">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Transition</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TabletCanvas</class>
+   <extends>QWidget</extends>
+   <header>tabletcanvas.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
