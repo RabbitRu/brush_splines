@@ -39,8 +39,6 @@
      <bool>false</bool>
     </property>
    </widget>
-   <zorder>widget</zorder>
-   <zorder>widget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -176,6 +174,9 @@
    </property>
   </action>
   <action name="actionRecord">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>&amp;Record</string>
    </property>
@@ -259,12 +260,12 @@
   </action>
   <action name="actionMax_Width">
    <property name="text">
-    <string>Max Width</string>
+    <string>&amp;Max Width</string>
    </property>
   </action>
   <action name="actionMax_Transparency">
    <property name="text">
-    <string>Max Transparency</string>
+    <string>Ma&amp;x Transparency</string>
    </property>
   </action>
  </widget>

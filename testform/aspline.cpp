@@ -1,7 +1,5 @@
-#include "aspline.h"
 
-#include "QDebug"
-#include "tabletcanvas.h"
+#include "aspline.h"
 
 void computeXlimits(QVector<mPoint>* points,int s, int e, qreal *llimit, qreal *ulimit)
 {
@@ -90,8 +88,8 @@ void calcspline(QVector<mPoint>* points, QVector<mPoint>* outp, int ammount){
             /* the first x slopes and the last y ones are extrapolated: */
             t[0]=0.0; t[1]=0.0;
             for (i=2; i < n-2; i++) {
-                num=abs(m[i+1] - m[i])*m[i-1] + abs(m[i-1] - m[i-2])*m[i];
-                den=abs(m[i+1] - m[i]) + abs(m[i-1] - m[i-2]);
+                num=std::abs(m[i+1] - m[i])*m[i-1] + std::abs(m[i-1] - m[i-2])*m[i];
+                den=std::abs(m[i+1] - m[i]) + std::abs(m[i-1] - m[i-2]);
 
                 if (den != 0) t[i]=num/den; //fpclassify(den) > FP_ZERO
                 else                            t[i]=0.0;

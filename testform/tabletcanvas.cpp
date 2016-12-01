@@ -1,6 +1,6 @@
 #include <QtWidgets>
-#include <math.h>
 
+#include "aspline.h"
 #include "tabletcanvas.h"
 
 /*TabletCanvas::TabletCanvas()
@@ -91,6 +91,7 @@ bool TabletCanvas::recordStroke(const QString &file){
 }
 
 bool TabletCanvas::stoprecord(){
+    recordStrokes=false;
     if(recordFile.isOpen()){
         recordFile.close();
         return true;
@@ -238,8 +239,6 @@ void TabletCanvas::paintPixmap(QPainter &painter, QTabletEvent *event)
     }
 }
 
-#include "aspline.cpp"
-
 void swapxy(QVector<mPoint>* arr){
     int i,x;
     for(i=0;i<arr->length();i++){
@@ -248,6 +247,8 @@ void swapxy(QVector<mPoint>* arr){
         (*arr)[i].pos.setY(x);
     }
 }
+
+#include "aspline.cpp"
 
 void TabletCanvas::drawStroke(QPainter &painter,const mPoint p){
     eraserBrush(points.last().pressure*0.99);

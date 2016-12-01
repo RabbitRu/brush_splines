@@ -70,11 +70,14 @@ void MainWindow::on_actionFixed_triggered()
 
 void MainWindow::on_actionRecord_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
-                                                    QDir::currentPath());
-    if (!m_canvas->recordStroke(fileName))
-        QMessageBox::information(this, "Error Opening File",
-                                 "Could not open file");
+    if(ui->actionRecord->isChecked()) {
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                        QDir::currentPath());
+        if (!m_canvas->recordStroke(fileName))
+            QMessageBox::information(this, "Error Opening File",
+                                     "Could not open file");
+    }else
+        m_canvas->stoprecord();
 }
 
 void MainWindow::on_actionPlay_triggered()
@@ -187,7 +190,7 @@ void MainWindow::on_actionMax_Width_triggered()
 {
     bool ok;
     m_canvas->setWidth(QInputDialog::getDouble(this, tr("Input max brush width"),
-                                           tr("Width:"), 1,1, 1000, 3, &ok));
+                                               tr("Width:"), 1,1, 1000, 3, &ok));
     if(!ok)return;//throw exeption
 }
 
@@ -195,6 +198,6 @@ void MainWindow::on_actionMax_Transparency_triggered()
 {
     bool ok;
     m_canvas->setTrans(QInputDialog::getDouble(this, tr("Input max brush transparency"),
-                                           tr("Transparency:"), 1,0, 1, 5, &ok));
+                                               tr("Transparency:"), 1,0, 1, 5, &ok));
     if(!ok)return;//throw exeption
 }
