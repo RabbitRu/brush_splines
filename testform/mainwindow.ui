@@ -39,6 +39,8 @@
      <bool>false</bool>
     </property>
    </widget>
+   <zorder>widget</zorder>
+   <zorder>widget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -63,6 +65,8 @@
      <string>Br&amp;ush</string>
     </property>
     <addaction name="actionBrush"/>
+    <addaction name="actionMax_Width"/>
+    <addaction name="actionMax_Transparency"/>
    </widget>
    <widget class="QMenu" name="menuTablet">
     <property name="title">
@@ -250,7 +254,17 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Transition</string>
+    <string>&amp;Transition</string>
+   </property>
+  </action>
+  <action name="actionMax_Width">
+   <property name="text">
+    <string>Max Width</string>
+   </property>
+  </action>
+  <action name="actionMax_Transparency">
+   <property name="text">
+    <string>Max Transparency</string>
    </property>
   </action>
  </widget>

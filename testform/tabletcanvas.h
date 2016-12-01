@@ -35,7 +35,7 @@ public:
     enum AlgoValuator { BasicVal, BrushVal, SplineVal};
     Q_ENUM(AlgoValuator)
 
-    TabletCanvas();
+    //TabletCanvas();
     TabletCanvas(QWidget*&);
     ~TabletCanvas();
 
@@ -43,6 +43,7 @@ public:
     bool saveImage(const QString &file);
     bool loadImage(const QString &file);
     bool recordStroke(const QString &file);
+    bool stoprecord();
     bool playStroke(const QString &file);
     void setAlgo(AlgoValuator type)
     { m_algo=type; }
@@ -62,8 +63,10 @@ public:
     { return m_color; }
     void setTabletDevice(QTabletEvent *event)
     { updateCursor(event); }
-    int maximum(int a, int b)
-    { return a > b ? a : b; }
+    void setWidth(qreal w)
+    {m_brushWidth=w; }
+    void setTrans(qreal t)
+    {m_brushTrans=t; }
 
 protected:
     void tabletEvent(QTabletEvent *event) Q_DECL_OVERRIDE;
@@ -77,7 +80,7 @@ private:
     void mydrawPoint(QPainter &painter, const mPoint p);
     //Qt::BrushStyle brushPattern(qreal value);
     void updateBrush(qreal pressure);
-    void eraserBrush(mPoint p);
+    void eraserBrush(qreal p);
     void updateCursor(const QTabletEvent *event);
 
     AlgoValuator m_algo;
@@ -88,6 +91,7 @@ private:
 
     QVector<mPoint> points;
     QColor m_color, m_scolor, m_ecolor;
+    qreal m_brushWidth, m_brushTrans;
     QPixmap m_pixmap;
     QBrush m_brush;
     QPen m_pen;

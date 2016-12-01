@@ -24,6 +24,8 @@ TabletCanvas::TabletCanvas(QWidget*& a)
     , m_widthValuator(PressureValuator)
     , m_colorValuator(NoValuator)
     , m_color(Qt::red)
+    , m_brushWidth(25)
+    , m_brushTrans(1)
     , m_brush(m_color)
     , m_pen(m_brush, 1.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin)
     , m_deviceDown(false)
@@ -48,7 +50,12 @@ bool TabletCanvas::newImage(){
 
 void TabletCanvas::initPixmap()
 {
-    QPixmap newPixmap = QPixmap(width(), height());
+    int w=width(),h=height();
+    if(m_pixmap.width()>w)
+        w=m_pixmap.width();
+    if(m_pixmap.height()>h)
+        h=m_pixmap.height();
+    QPixmap newPixmap = QPixmap(w, h);
     newPixmap.fill(Qt::white);
     QPainter painter(&newPixmap);
     if (!m_pixmap.isNull())
@@ -81,6 +88,14 @@ bool TabletCanvas::recordStroke(const QString &file){
     if(!recordFile.isOpen())return false;
     QTextStream(&recordFile)<<this->width()<<" "<<this->height()<<"\n";
     return true;
+}
+
+bool TabletCanvas::stoprecord(){
+    if(recordFile.isOpen()){
+        recordFile.close();
+        return true;
+    }
+    return false;
 }
 
 bool TabletCanvas::playStroke(const QString &file){
@@ -178,7 +193,7 @@ void TabletCanvas::tabletEvent(QTabletEvent *event)//Here everything starts
             QPainter painter(&m_pixmap);
             updateCursor(event);
             if(event->pointerType()==QTabletEvent::Eraser){
-                eraserBrush(mPoint(event->pos().x(),event->pos().y(),event->pressure()));
+                eraserBrush(event->pressure());
                 painter.setPen(m_pen);
                 painter.drawLine(points.last().pos, event->pos());
             }
@@ -235,12 +250,15 @@ void swapxy(QVector<mPoint>* arr){
 }
 
 void TabletCanvas::drawStroke(QPainter &painter,const mPoint p){
-
+    eraserBrush(points.last().pressure*0.99);
     painter.setPen(m_pen);
+    painter.drawPoint(points.last().pos);
+
     switch(m_algo){
     case BasicVal:
         //eraserBrush(prevPoint.pressure);
         //painter.drawPoint(prevPoint.pos);
+
         updateBrush(p.pressure);
         painter.setPen(m_pen);
         painter.drawLine(points.last().pos, p.pos);
@@ -257,11 +275,11 @@ void TabletCanvas::drawStroke(QPainter &painter,const mPoint p){
             if(points[1].pos!=points[0].pos)
                 inp.push_back(points[1]);
             else
-                inp[0].pressure=max(points[0].pressure,points[1].pressure);
+                inp[0].pressure=qMax(points[0].pressure,points[1].pressure);
         }
 
         if(inp.last().pos!=p.pos)inp.push_back(p);
-        else inp.last().pressure=max(inp.last().pressure,p.pressure);
+        else inp.last().pressure=qMax(inp.last().pressure,p.pressure);
 
         if(inp.length()>2 &&( inp[0].pos.x()==inp[1].pos.x()||inp[0].pos.x()==inp[2].pos.x()||inp[1].pos.x()==inp[2].pos.x())){
             swapxy(&inp);
@@ -334,11 +352,10 @@ void TabletCanvas::updateBrush(qreal pressure)
 {
     switch (m_widthValuator) {
     case PressureValuator:
-        m_pen.setWidthF(pressure * 12 + 1);
+        m_pen.setWidthF(pressure * m_brushWidth + 1);
         break;
     case FixedValuator:
-        //get input for that
-        m_pen.setWidth(10);
+        m_pen.setWidth(m_brushWidth);
         break;
     default:
         m_pen.setWidthF(1);
@@ -346,37 +363,38 @@ void TabletCanvas::updateBrush(qreal pressure)
 
     switch(m_transparencyValuator){
     case PressureValuator:
-        if(m_algo == BrushVal)m_color.setAlphaF(pressure / 4);
-        else m_color.setAlphaF(pressure);
+        if(m_algo == BrushVal)m_color.setAlphaF(m_brushTrans*pressure / 4);
+        else m_color.setAlphaF(pressure*m_brushTrans);
         break;
     case FixedValuator:
-        //get input for that
+        m_color.setAlphaF(pressure*m_brushTrans);
         break;
     default:
         break;
     }
 
     switch(m_colorValuator){
-    case NoValuator:
+    case PressureValuator:
+    {
+        qreal mr = m_ecolor.red() - m_scolor.red(),mg = m_ecolor.green() - m_scolor.green(),mb = m_ecolor.blue() - m_scolor.blue();
+        QColor pcolor = QColor(mr*pressure,mg*pressure,mb*pressure,255);
+        m_brush.setColor(pcolor);
+        m_pen.setColor(pcolor);
+        break;
+    }
+    default:
         m_brush.setColor(m_color);
         m_pen.setColor(m_color);
-        break;
-    case PressureValuator:
-        //m_brush.setColor(m_scolor+pressure*(m_ecolor-m_scolor));
-        //m_pen.setColor(m_scolor+pressure*(m_ecolor-m_scolor);
-
-        break;
-    default:
         break;
     }
 
 }
 
-void TabletCanvas::eraserBrush(mPoint p)
+void TabletCanvas::eraserBrush(qreal p)
 {
     m_brush.setColor(Qt::white);
     m_pen.setColor(Qt::white);
-    m_pen.setWidthF(p.pressure * 50 + 1);
+    m_pen.setWidthF(p * m_brushWidth + 1);
 }
 
 void TabletCanvas::updateCursor(const QTabletEvent *event)//???

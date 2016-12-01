@@ -20,6 +20,7 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     tabletcanvas.h \
-    tabletapplication.h
+    tabletapplication.h \
+    aspline.h
 
 FORMS    += mainwindow.ui

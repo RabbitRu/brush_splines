@@ -57,6 +57,10 @@ private slots:
 
     void on_actionTransition_triggered();
 
+    void on_actionMax_Width_triggered();
+
+    void on_actionMax_Transparency_triggered();
+
 private:
     Ui::MainWindow *ui;
     TabletCanvas *m_canvas;

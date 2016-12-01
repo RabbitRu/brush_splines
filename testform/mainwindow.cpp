@@ -182,3 +182,19 @@ void MainWindow::on_actionTransition_triggered()
     update();
 
 }
+
+void MainWindow::on_actionMax_Width_triggered()
+{
+    bool ok;
+    m_canvas->setWidth(QInputDialog::getDouble(this, tr("Input max brush width"),
+                                           tr("Width:"), 1,1, 1000, 3, &ok));
+    if(!ok)return;//throw exeption
+}
+
+void MainWindow::on_actionMax_Transparency_triggered()
+{
+    bool ok;
+    m_canvas->setTrans(QInputDialog::getDouble(this, tr("Input max brush transparency"),
+                                           tr("Transparency:"), 1,0, 1, 5, &ok));
+    if(!ok)return;//throw exeption
+}
