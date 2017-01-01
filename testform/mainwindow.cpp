@@ -39,7 +39,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    QString path = QDir::currentPath() + "/untitled.png";
+    QString path = QDir::currentPath() + "/untitled.bmp";
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Picture"),
                                                     path);
 
@@ -84,9 +84,9 @@ void MainWindow::on_actionPlay_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Choose file to play"),
                                                     QDir::currentPath());
-    if (!m_canvas->playStroke(fileName))
-        QMessageBox::information(this, "Error Opening File",
-                                 "Could not open file");
+    QPoint ret = m_canvas->playStroke(fileName);
+    if(ret.x()==-1)  QMessageBox::information(this, "Error Opening File", "Could not open file");
+    else QMessageBox::information(this, "Drawning Time:", "Time: "+QString::number(ret.x())+"\n Count: "+QString::number(ret.y()));
 }
 
 void MainWindow::on_actionNew_triggered()
@@ -190,14 +190,157 @@ void MainWindow::on_actionMax_Width_triggered()
 {
     bool ok;
     m_canvas->setWidth(QInputDialog::getDouble(this, tr("Input max brush width"),
-                                               tr("Width:"), 1,1, 1000, 3, &ok));
+                                               tr("Width:"), (double)m_canvas->getWidth(),1, 1000, 3, &ok));
     if(!ok)return;//throw exeption
 }
 
 void MainWindow::on_actionMax_Transparency_triggered()
 {
-    bool ok;
+    //bool ok;
     m_canvas->setTrans(QInputDialog::getDouble(this, tr("Input max brush transparency"),
-                                               tr("Transparency:"), 1,0, 1, 5, &ok));
-    if(!ok)return;//throw exeption
+                                               tr("Transparency:"), (double)m_canvas->getTrans(), 0, 1, 5));
+    //if(!ok)return;//throw exeption
+}
+
+void MainWindow::on_actionAmmount_of_repeats_triggered()
+{
+    //bool ok;
+    m_canvas->setAmmount(QInputDialog::getDouble(this, tr("Input ammount of repeats"),
+                                               tr("Ammount:"), (double)m_canvas->getAmmount(), 1, 99999));
+    //if(!ok)return;//throw exeption
+}
+
+void MainWindow::on_actionCompare_triggered()
+{
+    QString fileName1 = QFileDialog::getOpenFileName(this, tr("Open Picture"),
+                                                    QDir::currentPath());
+    QString fileName2 = QFileDialog::getOpenFileName(this, tr("Open Picture"),
+                                                    QDir::currentPath());
+    QImage a,b;
+    a.load(fileName1);b.load(fileName2);
+    double res = m_canvas->compareImages(a,b);
+    QMessageBox::information(this, "Comparsion result", "Match: "+QString::number(res)+"%");
+}
+
+void MainWindow::on_actionDebug_Points_triggered()
+{
+    if(ui->actionDebug_Points->isChecked()){
+        m_canvas->setDebugPoints(true);
+    }else{
+        m_canvas->setDebugPoints(false);
+    }
+}
+
+void MainWindow::on_actionDeltoid_triggered()
+{
+
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(Deltoid, file);
+}
+
+void MainWindow::on_actionSin_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(Sin,file);
+}
+
+void MainWindow::on_actionSqrt_triggered()
+{
+
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(Sqrt, file);
+}
+
+void MainWindow::on_actionTrifolium_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(Trifolium, file);
+}
+
+void MainWindow::on_actionCardioid_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(Cardiode, file);
+}
+
+void MainWindow::on_actionArch_Cpiral_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(ArchSpiral, file);
+}
+
+void MainWindow::on_actionRanunculoid_triggered()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Choose file for the record"),
+                                                QDir::currentPath());
+    m_canvas->drawTestFunc(Ranunculoid, file);
+}
+
+void MainWindow::on_actionSetA_triggered()
+{
+    m_canvas->setA(QInputDialog::getDouble(this, tr("Input a"),
+                                               tr("a:"), (double)m_canvas->getA(), 0, 9999, 5));
+}
+
+void MainWindow::on_actionSetB_triggered()
+{
+    m_canvas->setB(QInputDialog::getDouble(this, tr("Input b"),
+                                               tr("b:"), (double)m_canvas->getB(), 0, 9999, 5));
+}
+
+void MainWindow::on_actionSetSteps_triggered()
+{
+    m_canvas->setStepmod(QInputDialog::getInt(this, tr("Input stepmod"),
+                                               tr("stepmod:"), (double)m_canvas->getStepmod(), 0, 9999, 5));
+}
+
+void MainWindow::on_actionNormal_triggered()
+{
+    if(ui->actionFibonachi->isChecked())
+        ui->actionFibonachi->setChecked(false);
+    if(ui->actionGeom_2->isChecked())
+        ui->actionGeom_2->setChecked(false);
+    ui->actionNormal->setChecked(true);
+    m_canvas->setSval(Lin);
+}
+
+void MainWindow::on_actionFibonachi_triggered()//Now arifm prog
+{
+    if(ui->actionNormal->isChecked())
+        ui->actionNormal->setChecked(false);
+    if(ui->actionGeom_2->isChecked())
+        ui->actionGeom_2->setChecked(false);
+    ui->actionFibonachi->setChecked(true);
+    m_canvas->setSval(Arifm);
+}
+
+void MainWindow::on_actionGeom_2_triggered()
+{
+    if(ui->actionFibonachi->isChecked())
+        ui->actionFibonachi->setChecked(false);
+    if(ui->actionNormal->isChecked())
+        ui->actionNormal->setChecked(false);
+    ui->actionGeom_2->setChecked(true);
+    m_canvas->setSval(Geom);
+}
+
+void MainWindow::on_actionGenTests_triggered()
+{
+    m_canvas->testgen();
+}
+
+void MainWindow::on_actionRunTests_triggered()
+{
+    m_canvas->drawtests();
+}
+
+void MainWindow::on_actionCompareResults_triggered()
+{
+    m_canvas->compareResults();
 }

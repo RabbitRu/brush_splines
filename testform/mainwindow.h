@@ -61,6 +61,44 @@ private slots:
 
     void on_actionMax_Transparency_triggered();
 
+    void on_actionAmmount_of_repeats_triggered();
+
+    void on_actionCompare_triggered();
+
+    void on_actionDebug_Points_triggered();
+
+    void on_actionDeltoid_triggered();
+
+    void on_actionSin_triggered();
+
+    void on_actionSqrt_triggered();
+
+    void on_actionTrifolium_triggered();
+
+    void on_actionCardioid_triggered();
+
+    void on_actionArch_Cpiral_triggered();
+
+    void on_actionRanunculoid_triggered();
+
+    void on_actionSetA_triggered();
+
+    void on_actionSetB_triggered();
+
+    void on_actionSetSteps_triggered();
+
+    void on_actionNormal_triggered();
+
+    void on_actionFibonachi_triggered();
+
+    void on_actionGeom_2_triggered();
+
+    void on_actionGenTests_triggered();
+
+    void on_actionRunTests_triggered();
+
+    void on_actionCompareResults_triggered();
+
 private:
     Ui::MainWindow *ui;
     TabletCanvas *m_canvas;

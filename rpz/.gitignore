@@ -1,0 +1,14 @@
+auto
+*.log
+*.toc
+*.aux
+*.out
+rpz*.pdf
+*.bbl
+*.blg
+*.eps
+.deps
+tex/inc
+.idea
+utils/install.fish
+utils/install.sh

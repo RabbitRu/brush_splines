@@ -3,7 +3,10 @@
 
 #endif // ASPLINE_H
 
-#include "tabletcanvas.h"
+#include <QVector>
+#include <QtMath>
+
+#include "mpoint.h"
 
 void computeXlimits(QVector<mPoint>* points,int s, int e, qreal *llimit, qreal *ulimit);
 

@@ -77,14 +77,6 @@
      <addaction name="actionWidthFixed"/>
      <addaction name="actionWidthPressure"/>
     </widget>
-    <widget class="QMenu" name="menuColor_transition">
-     <property name="title">
-      <string>&amp;Color transition</string>
-     </property>
-     <addaction name="actionStartingColor"/>
-     <addaction name="actionEndingColor"/>
-     <addaction name="actionTransition"/>
-    </widget>
     <widget class="QMenu" name="menuTransparency">
      <property name="title">
       <string>&amp;Transparency</string>
@@ -93,7 +85,6 @@
      <addaction name="actionTransparencyPressure"/>
     </widget>
     <addaction name="menuLine_Width"/>
-    <addaction name="menuColor_transition"/>
     <addaction name="menuTransparency"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -106,9 +97,43 @@
     <property name="title">
      <string>Be&amp;nch</string>
     </property>
+    <widget class="QMenu" name="menuFuncs">
+     <property name="title">
+      <string>&amp;funcs</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="separator"/>
+     <addaction name="actionSin"/>
+     <addaction name="actionSqrt"/>
+     <addaction name="actionTrifolium"/>
+     <addaction name="actionDeltoid"/>
+     <addaction name="actionCardioid"/>
+     <addaction name="separator"/>
+     <addaction name="actionArch_Cpiral"/>
+     <addaction name="separator"/>
+     <addaction name="actionRanunculoid"/>
+     <addaction name="actionSetA"/>
+     <addaction name="actionSetB"/>
+     <addaction name="actionSetSteps"/>
+    </widget>
+    <widget class="QMenu" name="menuStepVal">
+     <property name="title">
+      <string>&amp;StepVal</string>
+     </property>
+     <addaction name="actionNormal"/>
+     <addaction name="actionGeom_2"/>
+    </widget>
     <addaction name="separator"/>
     <addaction name="actionRecord"/>
     <addaction name="actionPlay"/>
+    <addaction name="actionAmmount_of_repeats"/>
+    <addaction name="menuFuncs"/>
+    <addaction name="actionCompare"/>
+    <addaction name="actionDebug_Points"/>
+    <addaction name="menuStepVal"/>
+    <addaction name="actionGenTests"/>
+    <addaction name="actionRunTests"/>
+    <addaction name="actionCompareResults"/>
    </widget>
    <widget class="QMenu" name="menuAlgorithm">
     <property name="title">
@@ -123,8 +148,8 @@
    <addaction name="menuAlgorithm"/>
    <addaction name="menuBrush"/>
    <addaction name="menuTablet"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuBench"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -266,6 +291,125 @@
   <action name="actionMax_Transparency">
    <property name="text">
     <string>Ma&amp;x Transparency</string>
+   </property>
+  </action>
+  <action name="actionAmmount_of_repeats">
+   <property name="text">
+    <string>&amp;Ammount of repeats</string>
+   </property>
+  </action>
+  <action name="actionSin">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;sin(x)</string>
+   </property>
+  </action>
+  <action name="actionSqrt">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>s&amp;qrt</string>
+   </property>
+  </action>
+  <action name="actionTrifolium">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Trifolium</string>
+   </property>
+  </action>
+  <action name="actionCompare">
+   <property name="text">
+    <string>&amp;Compare</string>
+   </property>
+  </action>
+  <action name="actionDebug_Points">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Debug &amp;Points</string>
+   </property>
+  </action>
+  <action name="actionDeltoid">
+   <property name="text">
+    <string>&amp;Deltoid</string>
+   </property>
+  </action>
+  <action name="actionCardioid">
+   <property name="text">
+    <string>&amp;Cardioid</string>
+   </property>
+  </action>
+  <action name="actionArch_Cpiral">
+   <property name="text">
+    <string>&amp;Arch Spiral</string>
+   </property>
+  </action>
+  <action name="actionRanunculoid">
+   <property name="text">
+    <string>&amp;Ranunculoid</string>
+   </property>
+  </action>
+  <action name="actionSetA">
+   <property name="text">
+    <string>S&amp;etA</string>
+   </property>
+  </action>
+  <action name="actionSetB">
+   <property name="text">
+    <string>Set&amp;B</string>
+   </property>
+  </action>
+  <action name="actionSetSteps">
+   <property name="text">
+    <string>SetSte&amp;ps</string>
+   </property>
+  </action>
+  <action name="actionNormal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Normal</string>
+   </property>
+  </action>
+  <action name="actionFibonachi">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Fibonachi</string>
+   </property>
+  </action>
+  <action name="actionGeom_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Geom *2</string>
+   </property>
+  </action>
+  <action name="actionGenTests">
+   <property name="text">
+    <string>&amp;GenTests</string>
+   </property>
+  </action>
+  <action name="actionRunTests">
+   <property name="text">
+    <string>R&amp;unTests</string>
+   </property>
+  </action>
+  <action name="actionCompareResults">
+   <property name="text">
+    <string>C&amp;ompareResults</string>
    </property>
   </action>
  </widget>

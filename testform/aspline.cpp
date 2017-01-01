@@ -40,8 +40,8 @@ void calcspline(QVector<mPoint>* points, QVector<mPoint>* outp, int ammount){
             qreal dx[n], dy[n];            /* x[i+1]-x[i], resp. y[i+1]-y[i] */
             qreal m[n], t[n];              /* the slopes */
             qreal C[n], D[n];              /* the coefficients */
-            int steps, cstep;
-            qreal xv, pv,num, den, xd;
+            int steps, cstep = 1;               //m - razd raznost
+            qreal xv, pv = 0,num, den, xd;
             /* calculate coefficients of the spline (Akima interpolation itself)*/
             /* a) Calculate the differences and the slopes m[i]. */
             for (i=0; i < n-5; i++) {
@@ -56,7 +56,7 @@ void calcspline(QVector<mPoint>* points, QVector<mPoint>* outp, int ammount){
                     0,//depends on dx
                     0));
             dx[1]=(*points)[1].pos.x() - (*points)[0].pos.x();
-            (*points)[0].pos.setY(dx[1]*(m[3] - 2*m[2]) + (*points)[0].pos.y());
+            (*points)[0].pos.setY(dx[1]*(m[3] - 2*m[2]) + (*points)[1].pos.y());
             dy[1]=(*points)[1].pos.y() - (*points)[0].pos.y();
             m[1]=dy[1]/dx[1];
 
@@ -65,7 +65,7 @@ void calcspline(QVector<mPoint>* points, QVector<mPoint>* outp, int ammount){
                     0,//depends on dx
                     0));
             dx[0]=(*points)[1].pos.x() - (*points)[0].pos.x();
-            (*points)[0].pos.setY(dx[0]*(m[2] - 2*m[1]) + (*points)[0].pos.y());
+            (*points)[0].pos.setY(dx[0]*(m[2] - 2*m[1]) + (*points)[1].pos.y());
             dy[0]=(*points)[1].pos.y() - (*points)[0].pos.y();
             m[0]=dy[0]/dx[0];
 
@@ -88,20 +88,20 @@ void calcspline(QVector<mPoint>* points, QVector<mPoint>* outp, int ammount){
             /* the first x slopes and the last y ones are extrapolated: */
             t[0]=0.0; t[1]=0.0;
             for (i=2; i < n-2; i++) {
-                num=std::abs(m[i+1] - m[i])*m[i-1] + std::abs(m[i-1] - m[i-2])*m[i];
-                den=std::abs(m[i+1] - m[i]) + std::abs(m[i-1] - m[i-2]);
+                num=qFabs(m[i+1] - m[i])*m[i-1] + qFabs(m[i-1] - m[i-2])*m[i];
+                den=qFabs(m[i+1] - m[i]) + qFabs(m[i-1] - m[i-2]);
 
                 if (den != 0) t[i]=num/den; //fpclassify(den) > FP_ZERO
                 else                            t[i]=0.0;
-            }
+            }//t Это di в методичке или c2
 
             /* c) Allocate the polynom coefficients */
             /* A=y_i        B=t_i */
 
             for (i=2; i < n-2; i++) {
                 /* A[i]=y[i];           B[i]=t[i]; */
-                C[i]=(3*m[i] - 2*t[i] - t[i+1])/dx[i];
-                D[i]=(t[i] + t[i+1] - 2*m[i])/(dx[i]*dx[i]);
+                C[i]=(3*m[i] - 2*t[i] - t[i+1])/dx[i];// c3
+                D[i]=(t[i] + t[i+1] - 2*m[i])/(dx[i]*dx[i]);//c4
             }
 
             /* 3rd step: output the coefficients for the subintervalls i=2..n-4 */

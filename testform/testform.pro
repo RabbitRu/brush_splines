@@ -16,11 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     tabletcanvas.cpp \
     tabletapplication.cpp \
-    aspline.cpp
+    aspline.cpp \
+    mpoint.cpp \
+    testfuncs.cpp
 
 HEADERS  += mainwindow.h \
     tabletcanvas.h \
     tabletapplication.h \
-    aspline.h
+    aspline.h \
+    mpoint.h \
+    testfuncs.h
 
 FORMS    += mainwindow.ui
