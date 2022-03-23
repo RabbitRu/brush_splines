@@ -1,3 +1,3 @@
-Реализация инструмента рисования для графических редакторов “Динамическая кисть” на C++\QT
-
-Сглаживает сплайнами точки поступающие от графического планшета для получения красивых штрихов
+Simple raster graphcs editor with support for graphics tablets.
+Graphics tablets brushstrokes are interpolated with akima splines.
+Implemented in C++\Qt, paper (in russian) formated via LaTeX.
